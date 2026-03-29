@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>XHS Grabber Pro</title>
-<meta name="version" content="v15-202603290001-postready-caption">
+<meta name="version" content="v16-202603290001-bookmark-link">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1720,6 +1720,21 @@ FB Boost<br>Pro
       <button id="test-err-btn" onclick="testErrKeys()" style="width:100%;padding:11px;background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.35);color:#f87171;border-radius:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;">🧪 Test &amp; Fix ERR Keys</button>
       <div id="err-test-out" style="display:none;margin-top:8px;border-radius:9px;padding:11px 13px;font-size:13px;line-height:1.65;white-space:pre-wrap;"></div>
     </div>
+
+  <!-- ── BOOKMARK LINK — use on any device without re-entering keys ── -->
+  <div style="margin-top:14px;background:linear-gradient(135deg,rgba(24,119,242,.08),rgba(66,183,42,.06));border:1.5px solid rgba(24,119,242,.3);border-radius:14px;padding:16px 18px;">
+    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--blue);margin-bottom:6px;">📲 Use Your Keys on Any Device</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">
+      Generate a special bookmark link with your API keys baked in.<br>
+      <strong style="color:var(--text);">Open it on any phone, tablet or computer</strong> — your keys load automatically. Save it as a bookmark or keep it in your notes.
+    </div>
+    <button onclick="generateBookmarkLink()" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--blue),#0a55cc);border:none;color:#fff;border-radius:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:.3px;">
+      🔗 Copy Bookmark Link
+    </button>
+    <div style="margin-top:9px;font-size:12px;color:var(--muted);line-height:1.6;">
+      🔒 <strong>Private &amp; safe</strong> — keys are encoded in the URL <em>hash</em> (the part after <code style="background:var(--bg3);padding:1px 5px;border-radius:3px;">#</code>), which is never sent to any server. Only you can see it.
+    </div>
+  </div>
   </div>
 
   <!-- BULK CSV KEY IMPORT -->
@@ -2334,6 +2349,34 @@ window.onload = function() {
   /* Theme init */
   var savedTheme = localStorage.getItem('fbptheme') || 'dark';
   applyTheme(savedTheme);
+
+  /* ── BOOKMARK LINK: auto-import keys from URL hash ── */
+  (function(){
+    try {
+      var hash = window.location.hash || '';
+      var m = hash.match(/[#&]keys=([A-Za-z0-9+/=_-]+)/);
+      if(!m) return;
+      var decoded = JSON.parse(atob(m[1].replace(/-/g,'+').replace(/_/g,'/')));
+      if(!Array.isArray(decoded) || !decoded.length) return;
+      /* Load existing keys first so we can merge */
+      var existing = [];
+      try { existing = JSON.parse(localStorage.getItem("fbpkeys")||"[]"); } catch(e){}
+      var added = 0;
+      decoded.forEach(function(k){
+        if(k && k.val && !existing.find(function(e){ return e.val===k.val; })){
+          existing.push(k);
+          added++;
+        }
+      });
+      if(added){
+        localStorage.setItem("fbpkeys", JSON.stringify(existing));
+        /* Clean hash from URL without page reload */
+        history.replaceState(null,'', window.location.pathname + window.location.search);
+        setTimeout(function(){ toast('🔑 '+added+' key'+(added>1?'s':'')+' imported from bookmark link!'); }, 800);
+      }
+    } catch(e){}
+  })();
+
   try {
     var k = localStorage.getItem("fbpkeys");
     if(k) KEYS = JSON.parse(k);
@@ -2410,6 +2453,29 @@ function saveKeys() {
   localStorage.setItem("fbpkeys", JSON.stringify(KEYS));
   localStorage.setItem("fbpkeys_archive", JSON.stringify(typeof KEYS_ARCHIVE!=="undefined" ? KEYS_ARCHIVE : []));
   if(typeof renderKeysExportTable==="function") setTimeout(renderKeysExportTable, 50);
+}
+
+/* ── BOOKMARK LINK — encodes all saved keys into a URL you can bookmark ── */
+function generateBookmarkLink(){
+  if(!KEYS.length){ toast('⚠️ No keys saved yet — add keys first'); return; }
+  try {
+    var encoded = btoa(JSON.stringify(KEYS)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+    var base = window.location.origin + window.location.pathname;
+    var url = base + '#keys=' + encoded;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){
+        toast('✅ Bookmark link copied! Paste it in a new tab or save as bookmark.');
+      }).catch(function(){ _fallbackCopyBookmark(url); });
+    } else { _fallbackCopyBookmark(url); }
+  } catch(e){ toast('❌ Could not generate link: '+e.message); }
+}
+function _fallbackCopyBookmark(url){
+  var ta = document.createElement('textarea');
+  ta.value = url; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); toast('✅ Bookmark link copied!'); }
+  catch(e){ prompt('Copy this bookmark link:', url); }
+  document.body.removeChild(ta);
 }
 
 function addKey() {
