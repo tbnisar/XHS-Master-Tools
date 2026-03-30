@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>XHS Pro</title>
-<meta name="version" content="v17-202603290001-paste-keys">
+<meta name="version" content="v19-202603300002-blockgate-fix">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -7245,6 +7245,48 @@ function toggleSidebar() {
 /* profile scanner tip box */
 #page-metagrab .mg-tip { background:rgba(245,158,11,.07); border:1px solid rgba(245,158,11,.3); border-radius:10px; padding:12px 14px; font-size:12px; color:var(--muted); line-height:1.7; margin-bottom:12px; }
 #page-metagrab .mg-tip strong { color:var(--gold); }
+
+/* ── SEARCH TAB extras ── */
+#page-metagrab .srch-row { display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap; margin-bottom:12px; }
+#page-metagrab .srch-field { display:flex; flex-direction:column; gap:5px; }
+#page-metagrab .srch-field.grow { flex:1; min-width:200px; }
+#page-metagrab .srch-lbl { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); }
+#page-metagrab input.srch-inp { background:var(--inp-bg); border:1.5px solid var(--border2); border-radius:9px; color:var(--inp-text); font-family:'DM Sans',sans-serif; font-size:14px; padding:11px 14px; outline:none; width:100%; transition:border-color .2s; }
+#page-metagrab input.srch-inp:focus { border-color:#ef4444; }
+#page-metagrab input.srch-inp::placeholder { color:var(--inp-placeholder); font-size:13px; }
+#page-metagrab select.srch-sel { background:var(--inp-bg); border:1.5px solid var(--border2); border-radius:9px; color:var(--inp-text); font-family:'DM Sans',sans-serif; font-size:13px; padding:10px 12px; outline:none; cursor:pointer; }
+#page-metagrab select.srch-sel:focus { border-color:#ef4444; }
+#page-metagrab .srch-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; margin-top:4px; }
+#page-metagrab .srch-card { background:var(--bg3); border:1px solid var(--border2); border-radius:12px; overflow:hidden; transition:border-color .18s; }
+#page-metagrab .srch-card:hover { border-color:#ef4444; }
+#page-metagrab .srch-card-thumb { width:100%; height:140px; object-fit:cover; display:block; }
+#page-metagrab .srch-card-thumb-ph { width:100%; height:140px; background:linear-gradient(135deg,var(--bg3),var(--border2)); display:flex; align-items:center; justify-content:center; font-size:36px; }
+#page-metagrab .srch-card-body { padding:10px 12px; }
+#page-metagrab .srch-card-title { font-size:13px; font-weight:600; color:var(--body-text-lg); line-height:1.4; margin-bottom:5px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+#page-metagrab .srch-card-author { font-size:12px; color:var(--muted); margin-bottom:6px; }
+#page-metagrab .srch-card-meta { display:flex; gap:10px; font-size:11px; color:var(--muted); font-family:monospace; flex-wrap:wrap; margin-bottom:6px; }
+#page-metagrab .srch-card-desc { font-size:12px; color:var(--body-text); line-height:1.55; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; margin-bottom:8px; }
+#page-metagrab .srch-card-tags { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px; }
+#page-metagrab .srch-card-btns { display:flex; gap:6px; }
+#page-metagrab .srch-card-btn { flex:1; padding:6px 8px; border-radius:6px; font-size:11px; font-weight:700; font-family:'Syne',sans-serif; cursor:pointer; border:none; text-align:center; text-transform:uppercase; letter-spacing:.3px; }
+#page-metagrab .srch-card-btn-open { background:rgba(239,68,68,.15); color:#ef4444; border:1px solid rgba(239,68,68,.3); }
+#page-metagrab .srch-card-btn-detail { background:rgba(24,119,242,.12); color:var(--blue); border:1px solid rgba(24,119,242,.3); }
+#page-metagrab .srch-card-btn-detail.busy { opacity:.5; cursor:wait; pointer-events:none; }
+#page-metagrab .srch-card-btn-copy { background:rgba(66,183,42,.12); color:var(--green); border:1px solid rgba(66,183,42,.3); }
+#page-metagrab .srch-type-badge { display:inline-block; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; margin-left:4px; }
+#page-metagrab .srch-type-video { background:rgba(239,68,68,.18); color:#ef4444; border:1px solid rgba(239,68,68,.35); }
+#page-metagrab .srch-type-normal { background:rgba(66,183,42,.12); color:var(--green); border:1px solid rgba(66,183,42,.3); }
+#page-metagrab .srch-engage-row { display:flex; gap:10px; margin:8px 0; flex-wrap:wrap; }
+#page-metagrab .srch-engage-pill { display:flex; align-items:center; gap:4px; padding:4px 10px; background:var(--bg3); border:1px solid var(--border); border-radius:16px; font-size:12px; color:var(--body-text); font-family:monospace; }
+#page-metagrab .srch-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:9000; display:flex; align-items:center; justify-content:center; padding:20px; }
+#page-metagrab .srch-modal-box { background:var(--bg2); border:1px solid var(--border2); border-radius:18px; width:100%; max-width:580px; max-height:88vh; overflow-y:auto; padding:24px; }
+#page-metagrab .srch-modal-box::-webkit-scrollbar { width:5px; }
+#page-metagrab .srch-modal-box::-webkit-scrollbar-thumb { background:var(--border2); border-radius:3px; }
+#page-metagrab .srch-modal-imgs { display:flex; gap:7px; flex-wrap:wrap; margin:12px 0; }
+#page-metagrab .srch-modal-img { width:88px; height:88px; object-fit:cover; border-radius:8px; border:1px solid var(--border); cursor:pointer; }
+#page-metagrab .srch-modal-img:hover { border-color:#ef4444; }
+#page-metagrab .srch-empty { text-align:center; padding:48px 20px; color:var(--muted); }
+#page-metagrab .srch-empty-ico { font-size:40px; margin-bottom:10px; opacity:.4; }
 </style>
 
 <!-- ── HEADER ── -->
@@ -7263,7 +7305,8 @@ function toggleSidebar() {
 <!-- ── TABS ── -->
 <div class="mg-tabs">
   <button class="mg-tab active" id="mg-tab-url" onclick="mgSwitchTab('url')">🔗 URL Meta Grab</button>
-  <button class="mg-tab" id="mg-tab-profile" onclick="mgSwitchTab('profile')">👤 Profile Scanner</button>
+  <button class="mg-tab" id="mg-tab-profile" onclick="mgSwitchTab('profile')">👤 Profile Scanner (Not Working)</button>
+  <button class="mg-tab" id="mg-tab-search" onclick="mgSwitchTab('search')">🔍 Keyword Search (Not Working)</button>
 </div>
 
 <!-- ══════════════════ PANEL 1 — URL META GRAB ══════════════════ -->
@@ -7401,6 +7444,9 @@ function toggleSidebar() {
   <div class="mg-card">
     <div class="mg-lbl">Profile URL <span style="font-size:10px;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;">— proxy fetch (may fail for private profiles; use Paste Source above for 100% reliability)</span></div>
     <input class="mg-inp-txt" id="ps-profile-url" placeholder="https://www.xiaohongshu.com/user/profile/…  or  https://xhslink.com/…" />
+    <div style="font-size:12px;color:var(--muted);line-height:1.65;margin-top:6px;padding:8px 10px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:8px;">
+      <strong style="color:#ef9999;">⚠ QR-code issue when opening post links?</strong> That is normal XHS behavior — XHS shows a QR code to <em>anonymous / logged-out</em> users. Fix: <strong>log into xiaohongshu.com in your browser first</strong>, then click the "post" link. If you are already logged in and still see a QR code, try copying the link and opening it in the same browser window where you are logged in.
+    </div>
 
     <div class="mg-opts">
       <label><input type="checkbox" id="ps-chk-translate" checked> Auto-translate →</label>
@@ -7461,6 +7507,138 @@ function toggleSidebar() {
   </div>
 </div><!-- /panel profile -->
 
+<!-- ══════════════════ PANEL 3 — KEYWORD SEARCH ══════════════════ -->
+<div class="mg-panel" id="mg-panel-search">
+
+  <!-- Why cookies/proxy won't work banner -->
+  <div style="background:rgba(239,68,68,.07);border:1.5px solid rgba(239,68,68,.3);border-radius:12px;padding:13px 16px;margin-bottom:14px;font-size:13px;color:var(--muted);line-height:1.75;">
+    <strong style="color:#ef4444;">⚠ Why proxy search fails:</strong> CORS proxies cannot pass your login cookies to XHS, and XHS search is JavaScript-rendered — the proxy gets an empty page shell with no data. <strong style="color:var(--text);">Same reason Profile Scanner uses Paste Source.</strong><br>
+    <strong style="color:var(--green);">✅ Fix: use Method 1 below</strong> — paste the search results page source. XHS embeds all note data (title, desc, author, likes, images, tags) in <code>window.__INITIAL_STATE__</code> in the HTML — no individual fetches needed.
+  </div>
+
+  <!-- ══ METHOD 1 — PASTE SOURCE (PRIMARY) ══ -->
+  <div class="mg-card" style="border-color:rgba(66,183,42,.4);background:rgba(66,183,42,.03);">
+    <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onclick="this.parentElement.querySelector('.srch-pb').classList.toggle('hidden')">
+      <div class="mg-lbl" style="margin-bottom:0;">📋 Method 1 — Paste Search Page Source <span style="font-size:10px;background:rgba(66,183,42,.2);color:var(--green);border-radius:4px;padding:2px 7px;font-weight:800;margin-left:6px;">✅ ALWAYS WORKS</span></div>
+      <span style="font-size:12px;color:var(--muted);">▾ expand</span>
+    </div>
+    <div class="srch-pb" style="margin-top:12px;">
+      <div style="font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:10px;">
+        <strong style="color:var(--green);">① </strong>Open Chrome → log into <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;">xiaohongshu.com</code><br>
+        <strong style="color:var(--green);">② </strong>Navigate to this URL (edit keyword, then press Enter):
+        <br><code id="srch-url-display" style="display:inline-block;margin-top:4px;background:var(--bg3);border:1px solid var(--border2);padding:4px 10px;border-radius:6px;font-size:12px;color:var(--blue);word-break:break-all;cursor:pointer;" onclick="xhsCopyUrl(this)" title="Click to copy">https://www.xiaohongshu.com/search_result?keyword=healing</code>
+        <span style="font-size:11px;color:var(--muted);"> ← click to copy</span><br>
+        <strong style="color:var(--green);">③ </strong>On the results page: press <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;">Ctrl+U</code> → <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;">Ctrl+A</code> → <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;">Ctrl+C</code><br>
+        <strong style="color:var(--gold);">— OR —</strong> Open <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;">F12</code> → Console → type: <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:11px;">copy(document.documentElement.outerHTML)</code> → Enter<br>
+        <strong style="color:var(--green);">④ </strong>Paste below and click <strong>Extract &amp; Show Results</strong>
+      </div>
+      <!-- keyword + lang row -->
+      <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap;align-items:flex-end;">
+        <div class="srch-field grow">
+          <span class="srch-lbl">🔑 Keyword (updates URL above)</span>
+          <input type="text" id="srch-paste-kw" class="srch-inp" style="padding:9px 13px;" placeholder="healing, 好物推荐, travel vlog…" oninput="xhsUpdateUrlHint(this.value)" onkeydown="if(event.key==='Enter') xhsFromPaste()">
+        </div>
+        <div class="srch-field">
+          <span class="srch-lbl">🌐 Translate</span>
+          <select id="srch-paste-lang" class="srch-sel">
+            <option value="none">— No translate —</option>
+            <option value="English" selected>🇬🇧 English</option><option value="Urdu">🇵🇰 Urdu</option>
+            <option value="Arabic">🇸🇦 Arabic</option><option value="Hindi">🇮🇳 Hindi</option>
+            <option value="Spanish">🇪🇸 Spanish</option><option value="French">🇫🇷 French</option>
+            <option value="German">🇩🇪 German</option><option value="Turkish">🇹🇷 Turkish</option>
+            <option value="Indonesian">🇮🇩 Indonesian</option><option value="Japanese">🇯🇵 Japanese</option>
+            <option value="Korean">🇰🇷 Korean</option>
+          </select>
+        </div>
+        <div class="srch-field">
+          <span class="srch-lbl">📊 Max results</span>
+          <select id="srch-paste-count" class="srch-sel">
+            <option value="10">10</option><option value="20" selected>20</option>
+            <option value="30">30</option><option value="50">50</option><option value="999">All</option>
+          </select>
+        </div>
+      </div>
+      <textarea id="srch-paste-html" rows="4"
+        style="width:100%;background:var(--inp-bg);border:1.5px solid rgba(66,183,42,.35);border-radius:10px;color:var(--inp-text);font-family:monospace;font-size:11px;padding:10px 12px;resize:vertical;outline:none;line-height:1.5;margin-bottom:8px;display:block;"
+        placeholder="Paste full HTML page source here (Ctrl+U on the XHS search results page → Ctrl+A → Ctrl+C)…"></textarea>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button onclick="xhsFromPaste()" style="padding:9px 22px;background:linear-gradient(135deg,var(--green),#169900);border:none;color:#fff;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;">📥 Extract &amp; Show Results</button>
+        <button onclick="document.getElementById('srch-paste-html').value='';document.getElementById('srch-paste-status').textContent=''" style="padding:9px 14px;background:var(--bg3);border:1px solid var(--border2);color:var(--muted);border-radius:8px;cursor:pointer;font-size:12px;font-family:'Syne',sans-serif;font-weight:700;">✕ Clear</button>
+        <span id="srch-paste-status" style="font-size:12px;color:var(--green);font-family:monospace;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ METHOD 2 — AUTO SEARCH ══ -->
+  <div class="mg-card" style="border-color:rgba(24,119,242,.25);">
+    <div class="mg-lbl" style="margin-bottom:10px;">🤖 Method 2 — Auto Search <span style="font-size:10px;background:rgba(245,158,11,.15);color:var(--gold);border-radius:4px;padding:2px 7px;font-weight:800;margin-left:6px;">⚠ NEEDS COOKIES / MAY FAIL</span></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Add cookies in <strong>Profile Scanner → 🍪 Session Cookies</strong> first. Tries XHS search API + proxy. Often blocked without auth.</div>
+    <div class="srch-row">
+      <div class="srch-field grow">
+        <span class="srch-lbl">🔑 Keyword</span>
+        <input type="text" id="srch-keyword" class="srch-inp" placeholder="e.g. skincare, 好物推荐, travel vlog…" oninput="xhsUpdateUrlHint(this.value);(document.getElementById('srch-paste-kw')||{}).value=this.value" onkeydown="if(event.key==='Enter') xhsSearch()">
+      </div>
+      <div class="srch-field">
+        <span class="srch-lbl">📊 Count</span>
+        <select id="srch-count" class="srch-sel">
+          <option value="6">6</option><option value="12" selected>12</option>
+          <option value="20">20</option><option value="30">30</option>
+        </select>
+      </div>
+      <div class="srch-field">
+        <span class="srch-lbl">🌐 Translate</span>
+        <select id="srch-lang" class="srch-sel">
+          <option value="none">— No translate —</option>
+          <option value="English" selected>🇬🇧 English</option><option value="Urdu">🇵🇰 Urdu</option>
+          <option value="Arabic">🇸🇦 Arabic</option><option value="Hindi">🇮🇳 Hindi</option>
+          <option value="Spanish">🇪🇸 Spanish</option><option value="French">🇫🇷 French</option>
+          <option value="Turkish">🇹🇷 Turkish</option><option value="Indonesian">🇮🇩 Indonesian</option>
+          <option value="Japanese">🇯🇵 Japanese</option><option value="Korean">🇰🇷 Korean</option>
+        </select>
+      </div>
+    </div>
+    <div class="mg-btns">
+      <button class="mg-btn mg-btn-red" id="srch-btn-go" onclick="xhsSearch()">🔍 Auto Search</button>
+      <button class="mg-btn mg-btn-stop" id="srch-btn-stop" onclick="xhsSearchStop()" disabled>■ Stop</button>
+      <button class="mg-btn mg-btn-sec" id="srch-btn-details" onclick="xhsFetchAllDetails()" disabled>📥 Fetch All Details</button>
+      <button class="mg-btn mg-btn-green" id="srch-btn-export" onclick="xhsExportCSV()" disabled>⬇ Export CSV</button>
+    </div>
+    <div class="mg-prog" id="srch-prog-wrap">
+      <div class="mg-prog-labels"><span id="srch-prog-text">Ready</span><span id="srch-prog-pct"></span></div>
+      <div class="mg-prog-bar"><div class="mg-prog-fill" id="srch-prog-fill" style="width:0%"></div></div>
+      <div class="mg-ticker" id="srch-ticker"></div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="mg-card" id="srch-stats-card" style="display:none;">
+    <div class="mg-lbl">Summary</div>
+    <div class="mg-stats">
+      <div class="mg-stat"><div class="mg-stat-n" id="srch-s-total">0</div><div class="mg-stat-l">Found</div></div>
+      <div class="mg-stat"><div class="mg-stat-n" style="color:#ef4444;" id="srch-s-video">0</div><div class="mg-stat-l">Videos</div></div>
+      <div class="mg-stat"><div class="mg-stat-n" style="color:var(--green);" id="srch-s-image">0</div><div class="mg-stat-l">Images</div></div>
+      <div class="mg-stat"><div class="mg-stat-n" style="color:var(--blue);" id="srch-s-detail">0</div><div class="mg-stat-l">With Data</div></div>
+    </div>
+  </div>
+
+  <!-- Cards grid -->
+  <div class="mg-card">
+    <div class="mg-lbl">Search Results</div>
+    <div id="srch-grid" class="srch-grid">
+      <div class="srch-empty"><div class="srch-empty-ico">🔍</div>Use Method 1 (paste page source) for full results — guaranteed to work while logged into XHS.</div>
+    </div>
+  </div>
+
+</div><!-- /panel search -->
+
+<!-- Detail Modal (shared) -->
+<div id="srch-modal" style="display:none;" class="srch-modal-overlay" onclick="if(event.target===this)xhsCloseModal()">
+  <div class="srch-modal-box">
+    <button onclick="xhsCloseModal()" style="float:right;background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;margin-top:-4px;">✕</button>
+    <div id="srch-modal-content"></div>
+  </div>
+</div>
+
 </div><!-- /page-metagrab -->
 
 </div><!-- /content -->
@@ -7518,8 +7696,9 @@ function toggleSidebar() {
   }
 
   /* ─── FETCH via proxy ─── */
-  async function mgFetch(url){
-    var rawCookies = xhsCookies || ((document.getElementById('xhs-cookies-input')||{}).value||'').trim();
+  /* forceNoAuth=true → skip cookies entirely, use Googlebot UA (same path as URL Meta Grab) */
+  async function mgFetch(url, forceNoAuth){
+    var rawCookies = forceNoAuth ? '' : (xhsCookies || ((document.getElementById('xhs-cookies-input')||{}).value||'').trim());
     var cookies = rawCookies ? filterXHSCookies(rawCookies) : '';
     var isXHS = /xiaohongshu\.com|xhslink\.com/i.test(url);
 
@@ -7528,11 +7707,19 @@ function toggleSidebar() {
         var proxyUrl = PROXIES[i](url);
         var opts = { signal: AbortSignal.timeout(18000), headers: {} };
 
-        /* corsproxy.io supports x-cors-headers for header forwarding */
+        /* corsproxy.io: use x-cors-headers to forward request headers.
+           NOTE: most CORS proxies strip the Cookie header for security.
+           When cookies are present we still try, but will fall back to
+           Googlebot-UA mode if XHS returns a login wall (see callers). */
         if(i === 0){
-          var fwdHeaders = isXHS && cookies
-            ? xhsHeaders(cookies)
-            : { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' };
+          var fwdHeaders;
+          if(!forceNoAuth && isXHS && cookies){
+            fwdHeaders = xhsHeaders(cookies);
+          } else {
+            /* Googlebot UA — XHS serves full SSR (including __INITIAL_STATE__
+               with post data) to crawlers even for public profiles */
+            fwdHeaders = { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' };
+          }
           opts.headers = { 'x-cors-headers': JSON.stringify(fwdHeaders) };
         }
         var resp = await fetch(proxyUrl, opts);
@@ -7569,6 +7756,22 @@ function toggleSidebar() {
   }
 
   /* ─── PARSE META ─── */
+  /* ── Shared gate: detect XHS 404 / login-wall pages BEFORE any JSON parsing ──
+     Must be called before _srchParseStateJSON so we don't accidentally parse
+     the 404 page's own __INITIAL_STATE__ and treat "page not found" as a note title. */
+  function _isXhsBlockedPage(html){
+    if(typeof html !== 'string' || html.length < 50) return false;
+    var head = html.slice(0, 2000);
+    var titleM = head.match(/<title[^>]*>([^<]{0,200})<\/title>/i);
+    var pageTitle = titleM ? titleM[1].toLowerCase() : '';
+    return (
+      /page\s*(you visited\s*)?was not found|page not found/i.test(pageTitle) ||
+      /请登录|登录后查看/i.test(head) ||
+      /isLoginRequired['"]\s*:\s*true/i.test(html.slice(0, 8000)) ||
+      /<div[^>]+login.?wall/i.test(head)
+    );
+  }
+
   function parseMeta(html){
     if(typeof html !== 'string') html = '';
     /* Early-exit: XHS returned a 404 / login wall page.
@@ -8249,22 +8452,54 @@ function toggleSidebar() {
   window.psFromPastedHTML = function(){
     var html = (document.getElementById('ps-paste-html').value||'').trim();
     if(!html){ if(typeof toast==='function') toast('\u26a0 Paste the profile page source first'); return; }
-    var links = _psExtractPostLinksFromHTML(html, 'https://www.xiaohongshu.com');
-    /* _psExtractPostLinksFromHTML already deduplicates by note ID and preserves xsec params */
     var statusEl = document.getElementById('ps-paste-status');
-    if(!links.length){
-      if(statusEl) statusEl.textContent = '\u26a0 No post links found';
+
+    /* Extract post links (preserves xsec params) */
+    var links = _psExtractPostLinksFromHTML(html, 'https://www.xiaohongshu.com');
+
+    /* ALSO run the robust __INITIAL_STATE__ parser to get embedded titles/descriptions.
+       This is critical: profile pages embed ALL post metadata in page JS, so we can
+       show full data WITHOUT fetching each post individually (avoids QR-code login wall). */
+    var stateNotes = _srchParseStateJSON(html);
+
+    /* Build merged data map: regex approach + state walk (state wins on conflict) */
+    var mergedMap = _psExtractPostDataMap(html);
+    stateNotes.forEach(function(n){
+      if(!n.id) return;
+      var url = 'https://www.xiaohongshu.com/explore/' + n.id;
+      var existing = mergedMap[url];
+      /* Prefer state data if it has a title (regex map sometimes only gets partial data) */
+      if(!existing || (!existing.title && n.title)){
+        mergedMap[url] = {
+          title: n.title, description: n.desc||'', type: n.type||'image',
+          cover: n.cover||'', hashtags: n.tags||[]
+        };
+      }
+    });
+
+    /* If href-link extraction found nothing, fall back to state-extracted links */
+    if(!links.length && stateNotes.length){
+      links = stateNotes.map(function(n){ return n.link; });
+      if(statusEl) statusEl.textContent = '\u2713 Found ' + links.length + ' posts from page state (no <a> links found)';
+      if(typeof toast==='function') toast('\u2705 Found ' + links.length + ' posts from __INITIAL_STATE__');
+    } else if(!links.length){
+      if(statusEl) statusEl.textContent = '\u26a0 No post links found — try Ctrl+U in Chrome on the profile page';
       if(typeof toast==='function') toast('\u26a0 No post links found in pasted HTML');
       return;
+    } else {
+      var xsecCount = links.filter(function(u){ return /xsec_token/.test(u); }).length;
+      var dataCount = Object.values(mergedMap).filter(function(v){ return v && v.title; }).length;
+      if(dataCount > 0){
+        if(statusEl) statusEl.textContent = '\u2713 Found ' + links.length + ' posts (' + dataCount + ' with embedded metadata \u2014 fast scan!)';
+        if(typeof toast==='function') toast('\u2705 Found ' + links.length + ' posts (' + dataCount + ' with metadata \u2014 fast!) \u2014 scanning\u2026');
+      } else {
+        if(statusEl) statusEl.textContent = '\u2713 Found ' + links.length + ' links' + (xsecCount ? ' (' + xsecCount + ' with xsec_token)' : '');
+        if(typeof toast==='function') toast('\u2705 Found ' + links.length + ' posts \u2014 scanning\u2026');
+      }
     }
-    var xsecCount=links.filter(function(u){return /xsec_token/.test(u);}).length;
-    if(statusEl) statusEl.textContent = '\u2713 Found '+links.length+' links'+(xsecCount?' ('+xsecCount+' with xsec_token)':'');
-    if(typeof toast==='function') toast('\u2705 Found '+links.length+' posts \u2014 scanning\u2026');
-    /* Store links + pre-extracted post data map (use normalized URL as map key for lookup) */
+
     window._psPastedLinks = links;
-    window._psPastedDataMap = _psExtractPostDataMap(html);
-    var mapCount=Object.keys(window._psPastedDataMap||{}).length;
-    if(mapCount>0&&statusEl) statusEl.textContent='\u2713 Found '+links.length+' links ('+mapCount+' with metadata)';
+    window._psPastedDataMap = mergedMap;
     /* Auto-fill a dummy URL so psStart validation passes, then start */
     document.getElementById('ps-profile-url').value = 'https://www.xiaohongshu.com/user/profile/pasted';
     psStart();
@@ -8363,24 +8598,49 @@ function toggleSidebar() {
         } else {
           /* ── SLOW PATH: try proxy fetch (may fail behind login wall) ── */
           var _phtml=await mgFetch(_purl);
+          /* Crawler-mode fallback: if cookie proxy returned login wall, retry with Googlebot UA */
+          if(_phtml && _phtml.loginRequired) _phtml = await mgFetch(_purl, true);
           if(!_phtml||(_phtml&&(_phtml.loginRequired||typeof _phtml==='object'))){
             _pres2={ok:true,url:_purl,type:'image',title:_pstubTitle,
-              description:'⚠ Could not retrieve content — click post link to view on XHS.',
+              description:'⚠ Post blocked — log into xiaohongshu.com in your browser first, then click the "post" link (XHS shows a QR code to logged-out users).',
               hashtags:[],mediaLink:_purl,translated:false,_stubbed:true};
           } else {
             var _phtmlStr=typeof _phtml==='string'?_phtml:_phtml.html;
-            var _pmeta2=parseMeta(_phtmlStr);
-            if(_pmeta2._blocked){
+            /* ① Block check FIRST — prevents 404 "page not found" from being parsed as a note */
+            if(_isXhsBlockedPage(_phtmlStr)){
               _pres2={ok:true,url:_purl,type:'image',title:_pstubTitle,
-                description:'⚠ Post requires login — click post link to view on XHS.',
+                description:'⚠ Post requires login — log into xiaohongshu.com in your browser first, then click the "post" link (XHS shows a QR code / "page not found" to logged-out users).',
                 hashtags:[],mediaLink:_purl,translated:false,_stubbed:true};
+            /* ② Try __INITIAL_STATE__ first — same engine as URL Meta Grab */
             } else {
-              var _ptype2=_psDetectType(_phtmlStr,_purl);
-              var _pmedia=_psExtractMedia(_phtmlStr,_purl);
+              var _pStateNotes = _srchParseStateJSON(_phtmlStr);
+            if(_pStateNotes.length){
+              var _psn = _pStateNotes[0];
+              var _psMeta = {title:_psn.title||_pstubTitle, description:_psn.desc||'', hashtags:_psn.tags||[]};
               var _ptrans2=false;
-              if(doTrans){ var _ptr2=await doTranslate(_pmeta2,'ps-target-lang'); _pmeta2=_ptr2.data; _ptrans2=_ptr2.translated; }
-              var _ptags2=(_pmeta2.hashtags||[]).filter(Boolean).map(function(t){return t.startsWith('#')?t:'#'+t.replace(/\s+/g,'_');});
-              _pres2={ok:true,url:_purl,type:_ptype2,title:_pmeta2.title||_pstubTitle,description:_pmeta2.description||'',hashtags:_ptags2,mediaLink:_pmedia,translated:_ptrans2};
+              if(doTrans){ try{ var _ptr2=await doTranslate(_psMeta,'ps-target-lang'); _psMeta=_ptr2.data; _ptrans2=_ptr2.translated; }catch(e){} }
+              var _ptags2=(_psMeta.hashtags||[]).filter(Boolean).map(function(t){return t.startsWith('#')?t:'#'+t.replace(/\s+/g,'_');});
+              _pres2={ok:true,url:_purl,type:_psn.type||'image',
+                title:_psMeta.title,description:_psMeta.description||'',
+                hashtags:_ptags2,
+                mediaLink:(_psn.images&&_psn.images[0])||_psn.cover||_purl,
+                translated:_ptrans2};
+            } else {
+              /* ③ Fallback: parseMeta (OG tags) */
+              var _pmeta2=parseMeta(_phtmlStr);
+              if(_pmeta2._blocked){
+                _pres2={ok:true,url:_purl,type:'image',title:_pstubTitle,
+                  description:'⚠ Post requires login — log into xiaohongshu.com in your browser first, then click the "post" link.',
+                  hashtags:[],mediaLink:_purl,translated:false,_stubbed:true};
+              } else {
+                var _ptype2=_psDetectType(_phtmlStr,_purl);
+                var _pmedia=_psExtractMedia(_phtmlStr,_purl);
+                var _ptrans2=false;
+                if(doTrans){ var _ptr2=await doTranslate(_pmeta2,'ps-target-lang'); _pmeta2=_ptr2.data; _ptrans2=_ptr2.translated; }
+                var _ptags2=(_pmeta2.hashtags||[]).filter(Boolean).map(function(t){return t.startsWith('#')?t:'#'+t.replace(/\s+/g,'_');});
+                _pres2={ok:true,url:_purl,type:_ptype2,title:_pmeta2.title||_pstubTitle,description:_pmeta2.description||'',hashtags:_ptags2,mediaLink:_pmedia,translated:_ptrans2};
+              }
+            }
             }
           }
           psResults.push(_pres2); psSetRow(_pj,_pres2); _psStatsUpdate();
@@ -8433,20 +8693,64 @@ function toggleSidebar() {
     /* ── Fallback: HTML scrape profile page ── */
     _psProgress(0,1,'⟳ Scraping profile page (HTML fallback)…');
     var profileHtml=await mgFetch(profileUrl);
+
+    /* ── Crawler-mode fallback ──────────────────────────────────────────
+       Problem: CORS proxies silently strip Cookie headers, so XHS sees a
+       browser User-Agent with no session → login wall.  URL Meta Grab
+       works because it uses Googlebot UA (no cookies), which causes XHS to
+       serve a full SSR page including __INITIAL_STATE__ with post data.
+       Fix: when cookie-based fetch is blocked, retry with Googlebot UA.   */
+    if(profileHtml && profileHtml.loginRequired){
+      _psProgress(0,1,'⟳ Cookie proxy blocked — retrying in crawler mode (same as URL Meta Grab)…');
+      if(typeof toast==='function') toast('🤖 Cookie proxy failed — trying crawler mode…');
+      profileHtml = await mgFetch(profileUrl, true); /* forceNoAuth → Googlebot UA */
+    }
+
     if(!profileHtml || (profileHtml && profileHtml.loginRequired)){
       var msg=!cookies
         ? '⚠ XHS requires login. Best option: use 📋 Paste Source above (Ctrl+U on profile page). Or paste cookies from F12 Network tab.'
-        : '⚠ Proxy cannot forward cookies to XHS. Best option: use 📋 Paste Source above (Ctrl+U on profile page in Chrome).';
+        : '⚠ Proxy cannot forward cookies to XHS. Best option: use 📋 Paste Source above (Ctrl+U on profile page in Chrome). Crawler-mode also failed — profile may be private.';
       _psProgress(0,1,msg);
-      if(typeof toast==='function') toast('⚠ Login required — add cookies');
+      if(typeof toast==='function') toast('⚠ Login required — try Paste Source method');
       document.getElementById('ps-btn-scan').disabled=false;
       document.getElementById('ps-btn-stop').disabled=true;
       return;
     }
-    postLinks=_psExtractPostLinksFromHTML(typeof profileHtml==='string'?profileHtml:profileHtml.html, profileUrl);
+    var _profileHtmlStr = typeof profileHtml==='string'?profileHtml:profileHtml.html;
+    postLinks=_psExtractPostLinksFromHTML(_profileHtmlStr, profileUrl);
     if(!postLinks.length){
-      _psProgress(0,1,'⚠ No post links found. Profile may need login or be private.');
-      if(typeof toast==='function') toast('⚠ No posts found — try adding cookies');
+      /* Fallback: try extracting notes directly from __INITIAL_STATE__ JSON.
+         Googlebot-served profile pages often have posts in state even when no <a> tags exist. */
+      var _stateNotes = _srchParseStateJSON(_profileHtmlStr);
+      if(_stateNotes.length){
+        if(typeof toast==='function') toast('\ud83d\udce6 Found '+_stateNotes.length+' posts from page state \u2014 populating\u2026');
+        _psProgress(0,_stateNotes.length,'\u23f3 Extracting '+_stateNotes.length+' posts from page state\u2026');
+        for(var _si=0;_si<_stateNotes.length;_si++){
+          if(psStopped) break;
+          var _sn=_stateNotes[_si];
+          _psProgress(_si+1,_stateNotes.length,'\u23f3 Post '+(_si+1)+'/'+_stateNotes.length+': '+(_sn.title||'').slice(0,50));
+          psSetRow(_si,{loading:true,url:_sn.link});
+          var _snMeta={title:_sn.title,description:_sn.desc||'',hashtags:_sn.tags||[]};
+          var _snTrans=false;
+          if(doTrans){ try{ var _snTr=await doTranslate(_snMeta,'ps-target-lang'); _snMeta=_snTr.data; _snTrans=_snTr.translated; }catch(e){} }
+          var _snTags=(_snMeta.hashtags||[]).filter(Boolean).map(function(t){return t.startsWith('#')?t:'#'+t.replace(/\s+/g,'_');});
+          var _snRes={ok:true,url:_sn.link,type:_sn.type||'image',
+            title:_snMeta.title||_sn.title||'Post '+(_si+1),
+            description:_snMeta.description||_sn.desc||'',
+            hashtags:_snTags,
+            mediaLink:_sn.cover||(_sn.images&&_sn.images[0])||_sn.link,
+            translated:_snTrans};
+          psResults.push(_snRes); psSetRow(_si,_snRes); _psStatsUpdate();
+        }
+        _psProgress(psResults.length,_stateNotes.length,'\u2713 Done (from page state)!');
+        document.getElementById('ps-btn-scan').disabled=false;
+        document.getElementById('ps-btn-stop').disabled=true;
+        document.getElementById('ps-btn-export').disabled=psResults.length===0;
+        if(typeof toast==='function') toast('\u2713 Found '+psResults.filter(function(r){return r&&r.ok;}).length+' posts from page state');
+        return;
+      }
+      _psProgress(0,1,'\u26a0 No posts found via proxy. XHS serves empty profile to bots. \u27a1 Use \ud83d\udccb Paste Source instead: open profile in Chrome \u2192 Ctrl+U \u2192 Select All \u2192 paste here.');
+      if(typeof toast==='function') toast('\u26a0 No posts found \u2014 use Paste Source method');
       document.getElementById('ps-btn-scan').disabled=false;
       document.getElementById('ps-btn-stop').disabled=true;
       return;
@@ -8456,30 +8760,60 @@ function toggleSidebar() {
     for(var j=0;j<postLinks.length;j++){
       if(psStopped) break;
       var url=postLinks[j];
-      _psProgress(j,postLinks.length,'⟳ '+url);
+      _psProgress(j,postLinks.length,'⟳ '+(j+1)+'/'+postLinks.length+': '+url.split('/').pop().slice(0,20));
       psSetRow(j,{loading:true,url:url});
       var html=await mgFetch(url);
+      /* Crawler-mode fallback: if cookies caused login wall, retry with Googlebot UA
+         Note: Googlebot UA causes XHS to serve the full SSR page with __INITIAL_STATE__
+         which is exactly what URL Meta Grab uses successfully. */
+      if(html && html.loginRequired) html = await mgFetch(url, true);
       var res2;
       var _jid=(url.match(/\/([a-f0-9]{16,})/i)||[])[1]||'';
       var _jstub='Post '+(_jid?'(…'+_jid.slice(-6)+')':'');
       if(!html||(html&&(html.loginRequired||typeof html==='object'))){
+        /* XHS blocked even Googlebot UA — likely xsec_token mismatch or private post.
+           Note: clicking the post link in browser will show a QR code if not logged in — that is
+           normal XHS behavior for anonymous users. Log into xiaohongshu.com first, then open link. */
         res2={ok:true,url:url,type:'image',title:_jstub,
-          description:'⚠ Could not retrieve content — click post link to view on XHS.',
+          description:'⚠ Post blocked by XHS — log into xiaohongshu.com in your browser, then click the "post" link to open it (do NOT click while logged out — XHS shows a QR code to anonymous users).',
           hashtags:[],mediaLink:url,translated:false,_stubbed:true};
       } else {
         var htmlStr=typeof html==='string'?html:html.html;
-        var meta2=parseMeta(htmlStr);
-        if(meta2._blocked){
+        /* ① Block check FIRST — prevents 404 page text from being parsed as a note title */
+        if(_isXhsBlockedPage(htmlStr)){
           res2={ok:true,url:url,type:'image',title:_jstub,
-            description:'⚠ Post requires login — click post link to view on XHS.',
+            description:'⚠ Post requires login — log into xiaohongshu.com in your browser first, then click the "post" link (XHS shows a QR code / "page not found" to logged-out users).',
             hashtags:[],mediaLink:url,translated:false,_stubbed:true};
+        /* ② Try __INITIAL_STATE__ JSON parser — same engine that makes URL Meta Grab reliable */
         } else {
-          var type2=_psDetectType(htmlStr,url);
-          var media=_psExtractMedia(htmlStr,url);
-          var translated2=false;
-          if(doTrans){ var tr2=await doTranslate(meta2,'ps-target-lang'); meta2=tr2.data; translated2=tr2.translated; }
-          var tags2=(meta2.hashtags||[]).filter(Boolean).map(function(t){return t.startsWith('#')?t:'#'+t.replace(/\s+/g,'_');});
-          res2={ok:true,url:url,type:type2,title:meta2.title||_jstub,description:meta2.description||'',hashtags:tags2,mediaLink:media,translated:translated2};
+          var _jStateNotes = _srchParseStateJSON(htmlStr);
+          if(_jStateNotes.length){
+            var _jsn = _jStateNotes[0];
+            var _jMeta = {title:_jsn.title||_jstub, description:_jsn.desc||'', hashtags:_jsn.tags||[]};
+            var _jTrans = false;
+            if(doTrans){ try{ var _jTr=await doTranslate(_jMeta,'ps-target-lang'); _jMeta=_jTr.data; _jTrans=_jTr.translated; }catch(e){} }
+            var _jTags=(_jMeta.hashtags||[]).filter(Boolean).map(function(t){return t.startsWith('#')?t:'#'+t.replace(/\s+/g,'_');});
+            res2={ok:true,url:url,type:_jsn.type||'image',
+              title:_jMeta.title,description:_jMeta.description||'',
+              hashtags:_jTags,
+              mediaLink:(_jsn.images&&_jsn.images[0])||_jsn.cover||url,
+              translated:_jTrans};
+          } else {
+            /* ③ Fallback: parseMeta (OG tags) */
+            var meta2=parseMeta(htmlStr);
+            if(meta2._blocked){
+              res2={ok:true,url:url,type:'image',title:_jstub,
+                description:'⚠ Post requires login — log into xiaohongshu.com in your browser first, then click the "post" link (XHS shows a QR code to anonymous/logged-out users).',
+                hashtags:[],mediaLink:url,translated:false,_stubbed:true};
+            } else {
+              var type2=_psDetectType(htmlStr,url);
+              var media=_psExtractMedia(htmlStr,url);
+              var translated2=false;
+              if(doTrans){ var tr2=await doTranslate(meta2,'ps-target-lang'); meta2=tr2.data; translated2=tr2.translated; }
+              var tags2=(meta2.hashtags||[]).filter(Boolean).map(function(t){return t.startsWith('#')?t:'#'+t.replace(/\s+/g,'_');});
+              res2={ok:true,url:url,type:type2,title:meta2.title||_jstub,description:meta2.description||'',hashtags:tags2,mediaLink:media,translated:translated2};
+            }
+          }
         }
       }
       psResults.push(res2); psSetRow(j,res2); _psStatsUpdate();
@@ -8512,13 +8846,622 @@ function toggleSidebar() {
 
   /* ─── TAB SWITCHER ─── */
   window.mgSwitchTab=function(tab){
-    ['url','profile'].forEach(function(t){
+    ['url','profile','search'].forEach(function(t){
       document.getElementById('mg-tab-'+t).classList.toggle('active',t===tab);
       document.getElementById('mg-panel-'+t).classList.toggle('active',t===tab);
     });
   };
 
-  /* ─── HOOK goPage ─── */
+  /* ══════════════════════════════════════════════════════
+     XHS KEYWORD SEARCH  (ported from xiaohongshu.ts)
+     Mirrors: searchXiaohongshu(), extractNoteLinks(),
+              getNoteDetailData(), getNoteDetail()
+  ══════════════════════════════════════════════════════ */
+
+  var _srchNotes   = [];   // array of note objects
+  var _srchStopped = false;
+
+  /* ── helpers ── */
+  function _srchProg(text, pct, ticker){
+    var w=document.getElementById('srch-prog-wrap'); if(w) w.classList.add('show');
+    var t=document.getElementById('srch-prog-text'); if(t) t.textContent=text;
+    var p=document.getElementById('srch-prog-pct');  if(p) p.textContent=(pct!=null?pct+'%':'');
+    var f=document.getElementById('srch-prog-fill'); if(f) f.style.width=(pct!=null?pct:0)+'%';
+    var k=document.getElementById('srch-ticker');    if(k) k.textContent=ticker||'';
+  }
+  function _srchStatsUpdate(){
+    var total=_srchNotes.length, vid=0, img=0, det=0;
+    _srchNotes.forEach(function(n){ if(!n) return; if(n.type==='video') vid++; else img++; if(n._detailed) det++; });
+    var sc=document.getElementById('srch-stats-card'); if(sc) sc.style.display='';
+    function sv(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+    sv('srch-s-total',total); sv('srch-s-video',vid); sv('srch-s-image',img); sv('srch-s-detail',det);
+  }
+
+  /* ── URL hint helpers ── */
+  window.xhsUpdateUrlHint = function(kw){
+    kw = (kw||'').trim() || 'healing';
+    var el = document.getElementById('srch-url-display');
+    if(el) el.textContent = 'https://www.xiaohongshu.com/search_result?keyword=' + encodeURIComponent(kw);
+  };
+  window.xhsCopyUrl = function(el){
+    var url = (el||{}).textContent || '';
+    if(navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ if(typeof toast==='function') toast('✓ URL copied!'); });
+    else { var ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); if(typeof toast==='function') toast('✓ Copied!'); }
+    if(el){ el.style.color='var(--green)'; setTimeout(function(){ el.style.color='var(--blue)'; },1500); }
+  };
+
+  /* ── Extract notes from XHS HTML using BOTH structured JSON path AND recursive walk ──
+     Uses the same robust walk() engine as _psExtractPostDataMap for profile scanner.
+     Works on search results page, profile page, or any XHS page with __INITIAL_STATE__ */
+  function _srchParseStateJSON(html){
+    var notes = [];
+    var noteMap = {}; // deduplicate by id
+    /* Safety: never parse a 404/login-wall page as notes */
+    if(_isXhsBlockedPage(html)) return notes;
+
+    /* ── Step A: structured path — state.search.noteResult.items ── */
+    var statePatterns = [
+      /window\.__INITIAL_STATE__\s*=\s*/,
+      /window\.__INITIAL_DATA__\s*=\s*/,
+      /window\.__SSR_DATA__\s*=\s*/
+    ];
+    for(var pi=0; pi<statePatterns.length; pi++){
+      var idx = html.search(statePatterns[pi]);
+      if(idx === -1) continue;
+      var start = html.indexOf('{', idx);
+      if(start === -1) continue;
+      /* Walk brace depth to find matching close */
+      var depth=0, end=-1;
+      for(var ci=start; ci<Math.min(start+1000000, html.length); ci++){
+        if(html[ci]==='{') depth++;
+        else if(html[ci]==='}') { depth--; if(depth===0){ end=ci+1; break; } }
+      }
+      if(end === -1) continue;
+      var state;
+      try{ state = JSON.parse(html.slice(start,end)); } catch(e){ continue; }
+
+      /* ── Structured path ── */
+      var items =
+        (state.search && state.search.noteResult && state.search.noteResult.items) ||
+        (state.searchFeed && state.searchFeed.noteResult && state.searchFeed.noteResult.items) ||
+        (state.home && state.home.feedList) || [];
+      items.forEach(function(item){
+        var n = item.note || item.noteCard || item;
+        _srchNoteFromObj(n, noteMap, notes);
+      });
+
+      /* ── Recursive walk to catch any remaining notes ── */
+      _srchWalkState(state, noteMap, notes);
+      if(notes.length) break;
+    }
+
+    /* ── Step B: regex scan raw HTML for inline note blobs (same as _psExtractPostDataMap strategy 1) ── */
+    if(!notes.length){
+      var noteRe = /\{[^{}]*"(?:noteId|note_id|id)"\s*:\s*"([a-f0-9]{16,})"[^{}]{0,3000}?\}/g;
+      var nm;
+      while((nm = noteRe.exec(html)) !== null){
+        try{
+          var obj = JSON.parse(nm[0]);
+          _srchNoteFromObj(obj, noteMap, notes);
+        }catch(e){
+          /* regex-extract fields */
+          var id = nm[1];
+          if(noteMap[id]) continue;
+          var blob = nm[0];
+          var titleM = blob.match(/"(?:title|displayTitle|display_title)"\s*:\s*"([^"]{1,300})"/);
+          var descM  = blob.match(/"(?:desc|description|content)"\s*:\s*"([^"]{1,800})"/);
+          var authorM= blob.match(/"(?:nickname|name)"\s*:\s*"([^"]{1,100})"/);
+          var title  = titleM ? _srchDecodeStr(titleM[1]) : '';
+          var desc   = descM  ? _srchDecodeStr(descM[1])  : '';
+          var author = authorM? _srchDecodeStr(authorM[1]): '';
+          if(title||desc){
+            var note = { id:id, title:title, desc:desc, type:/\"type\"\s*:\s*\"video\"/.test(blob)?'video':'normal', author:author, cover:'', link:'https://www.xiaohongshu.com/explore/'+id, likes:0, collects:0, comments:0, tags:[], images:[], _detailed:!!(title&&desc) };
+            noteMap[id]=true; notes.push(note);
+          }
+        }
+      }
+    }
+    return notes;
+  }
+
+  function _srchDecodeStr(s){
+    return s.replace(/\\u([0-9a-f]{4})/gi,function(_,h){return String.fromCharCode(parseInt(h,16));})
+            .replace(/\\n/g,' ').replace(/\\t/g,' ').replace(/\\/g,'');
+  }
+
+  function _srchNoteFromObj(n, noteMap, notes){
+    if(!n || typeof n !== 'object') return;
+    /* XHS often wraps fields in a nested noteCard: { noteId:"...", noteCard:{ displayTitle:"...", desc:"..." } }
+       Merge noteCard into the lookup object so we can find all fields in one pass. */
+    var card = (n.noteCard || n.note_card);
+    var eff = card && typeof card === 'object' ? Object.assign({}, card, n) : n;
+    var id = eff.noteId || eff.note_id || (typeof eff.id==='string'&&eff.id.length>=16?eff.id:'');
+    if(!id || noteMap[id]) return;
+    var user = eff.user || eff.author || n.user || n.author || {};
+    var interact = eff.interactInfo || eff.interact_info || n.interactInfo || n.interact_info || {};
+    var imgList = eff.imageList || eff.images || eff.image_list || n.imageList || n.images || [];
+    var cover = (eff.cover&&(eff.cover.url||eff.cover.url_default||eff.cover.urlDefault))||
+                (n.cover&&(n.cover.url||n.cover.url_default||n.cover.urlDefault))||
+                (imgList[0]&&(imgList[0].url||imgList[0].urlDefault))||'';
+    var likes    = parseInt(interact.likedCount||interact.liked_count||interact.like_count||eff.likeCount||0)||0;
+    var collects = parseInt(interact.collectedCount||interact.collected_count||interact.collect_count||eff.collectCount||0)||0;
+    var comments = parseInt(interact.commentCount||interact.comment_count||eff.commentCount||0)||0;
+    var tags = (eff.tagList||eff.tag_list||n.tagList||[]).map(function(t){return t.name||t;}).filter(Boolean);
+    var images = imgList.map(function(i){return i.url||i.urlDefault||i.url_default||'';}).filter(Boolean);
+    var title = eff.title||eff.displayTitle||eff.display_title||n.title||n.displayTitle||n.display_title||'';
+    var desc  = eff.desc||eff.description||eff.content||n.desc||n.description||'';
+    if(!title && !desc) return;
+    noteMap[id] = true;
+    notes.push({
+      id:id, title:title, desc:desc,
+      type:(eff.type==='video'||eff.noteType==='video'||eff.note_type==='video'||n.type==='video'||n.noteType==='video')?'video':'normal',
+      author:user.nickname||user.name||user.nick||'',
+      authorId:user.userId||user.user_id||user.uid||'',
+      cover:cover, link:'https://www.xiaohongshu.com/explore/'+id,
+      likes:likes, collects:collects, comments:comments,
+      tags:tags, images:images,
+      _detailed:!!(title && (desc||images.length||likes))
+    });
+  }
+
+  function _srchWalkState(obj, noteMap, notes, depth){
+    if(!obj||typeof obj!=='object'||depth>12) return;
+    depth = depth||0;
+    if(Array.isArray(obj)){
+      for(var i=0;i<obj.length;i++) _srchWalkState(obj[i], noteMap, notes, depth+1);
+      return;
+    }
+    /* Try to extract note from this object */
+    _srchNoteFromObj(obj, noteMap, notes);
+    /* Recurse into values */
+    var keys = Object.keys(obj);
+    for(var k=0; k<keys.length; k++) _srchWalkState(obj[keys[k]], noteMap, notes, depth+1);
+  }
+
+  /* ── FROM PASTE: process pasted search results page HTML ── */
+  window.xhsFromPaste = async function(){
+    var html = (document.getElementById('srch-paste-html')||{}).value||'';
+    html = html.trim();
+    if(!html){ if(typeof toast==='function') toast('⚠ Paste the search page source first'); return; }
+
+    var kw  = (document.getElementById('srch-paste-kw')||{}).value||'search';
+    var max = parseInt((document.getElementById('srch-paste-count')||{}).value||'20')||20;
+    var langEl = document.getElementById('srch-paste-lang');
+    var lang   = langEl ? langEl.value : 'none';
+    var statusEl = document.getElementById('srch-paste-status');
+
+    _srchNotes = []; _srchStopped = false;
+    document.getElementById('srch-btn-export').disabled = true;
+    document.getElementById('srch-btn-details').disabled = true;
+    var grid = document.getElementById('srch-grid');
+    grid.innerHTML = '<div class="srch-empty"><div class="srch-empty-ico"><span class="mg-spin">⚙</span></div>Parsing page source…</div>';
+    document.getElementById('srch-stats-card').style.display = 'none';
+    if(statusEl) statusEl.textContent = '⏳ Parsing…';
+    _srchProg('Parsing __INITIAL_STATE__…', 20, 'Extracting note data from HTML…');
+
+    /* Extract notes using the robust parser */
+    var notes = _srchParseStateJSON(html);
+    notes = notes.slice(0, max);
+
+    if(!notes.length){
+      grid.innerHTML = '<div class="srch-empty"><div class="srch-empty-ico">😕</div>No notes found in pasted HTML.<br><br><strong>Possible reasons:</strong><br>① Page loaded before XHS JS ran — try <code>F12 → Console → copy(document.documentElement.outerHTML)</code> after page fully loads<br>② Make sure you are on the search results page (not the search box page)<br>③ Try scrolling the results page first, then copy source</div>';
+      _srchProg('No notes found', 0, '');
+      if(statusEl) statusEl.textContent = '⚠ No notes found — see grid for tips';
+      return;
+    }
+
+    _srchNotes = notes;
+    _srchProg('Translating…', 60, notes.length + ' notes found, translating…');
+
+    /* Translate if requested */
+    if(lang !== 'none' && typeof gemini === 'function' && typeof KEYS !== 'undefined' && KEYS && KEYS.length){
+      /* Quick-translate first 10, rest async */
+      var toTrans = notes.filter(function(n){ return n.title||n.desc; }).slice(0,10);
+      for(var ti=0; ti<toTrans.length && !_srchStopped; ti++){
+        var n = toTrans[ti];
+        try{
+          /* Temporarily swap the lang select so doTranslate reads the right value */
+          var fakeSel = {value: lang};
+          var prevSel = document.getElementById('srch-lang');
+          /* inject into doTranslate via the id — we need a DOM element */
+          var tmpLang = document.getElementById('srch-lang');
+          var prevVal = tmpLang ? tmpLang.value : '';
+          if(tmpLang) tmpLang.value = lang;
+          var tr = await doTranslate({title:n.title, description:n.desc, hashtags:n.tags}, 'srch-lang');
+          if(tmpLang) tmpLang.value = prevVal;
+          if(tr.translated){ n.title=tr.data.title||n.title; n.desc=tr.data.description||n.desc; n.tags=tr.data.hashtags||n.tags; n._translated=true; }
+        }catch(e){}
+        _srchProg('Translating '+( ti+1)+'/'+toTrans.length+'…', 60+Math.round((ti/toTrans.length)*30), '');
+      }
+    }
+
+    /* Render */
+    _srchProg('Rendering ' + notes.length + ' results…', 95, '');
+    grid.innerHTML = '';
+    notes.forEach(function(n,i){ _srchRenderCard(n, i); });
+    _srchStatsUpdate();
+
+    var withData = notes.filter(function(n){ return n.title||n.desc; }).length;
+    _srchProg('✓ Found ' + notes.length + ' notes from "' + kw + '"', 100,
+      withData + ' with data — ' + (notes.filter(function(n){return n.images&&n.images.length;}).length) + ' with images');
+    if(statusEl) statusEl.textContent = '✓ ' + notes.length + ' notes extracted (' + withData + ' with full data)';
+    document.getElementById('srch-btn-export').disabled = false;
+    document.getElementById('srch-btn-details').disabled = false;
+    if(typeof toast === 'function') toast('✅ ' + notes.length + ' notes found for "' + kw + '"');
+  };
+
+  /* ── Extract note cards from DOM (.note-item selector, mirrors extractNoteLinks()) ── */
+  function _srchParseDOM(html){
+    var notes=[];
+    try{
+      var doc=new DOMParser().parseFromString(html,'text/html');
+      var items=doc.querySelectorAll('.note-item, .note-card, [class*="note-item"]');
+      items.forEach(function(el){
+        /* title — mirrors: .title span */
+        var titleEl=el.querySelector('.title span')||el.querySelector('.title')||el.querySelector('[class*="title"]');
+        var title=titleEl?titleEl.textContent.trim():'';
+        /* link — mirrors: a.cover.mask */
+        var linkEl=el.querySelector('a.cover.mask')||el.querySelector('a[href*="/explore/"]')||el.querySelector('a');
+        var link=linkEl?linkEl.href:'';
+        if(link&&!/^https?/.test(link)) link='https://www.xiaohongshu.com'+link;
+        /* author — mirrors: .card-bottom-wrapper .name span.name */
+        var authorEl=el.querySelector('.card-bottom-wrapper .name span.name')||el.querySelector('[class*="author"] [class*="name"]')||el.querySelector('.name');
+        var author=authorEl?authorEl.textContent.trim():'';
+        /* cover image */
+        var imgEl=el.querySelector('img');
+        var cover=imgEl?(imgEl.src||imgEl.getAttribute('data-src')||''):'';
+        /* type */
+        var isVideo=!!el.querySelector('[class*="video"],.video-mask,.play-icon,[class*="play"]');
+        /* note id from link */
+        var idM=link.match(/\/explore\/([a-f0-9]{16,})/i)||link.match(/\/discovery\/item\/([a-f0-9]{16,})/i);
+        var id=idM?idM[1]:'';
+        if(!link && !title) return;
+        notes.push({ id:id, title:title, desc:'', type:isVideo?'video':'normal', author:author, cover:cover, link:link, likes:0, collects:0, comments:0, tags:[], images:[] });
+      });
+    }catch(e){}
+    return notes;
+  }
+
+  /* ── Parse detail page — mirrors getNoteDetailData() from xiaohongshu.ts ── */
+  function _srchParseDetail(html, url){
+    if(!html || typeof html!=='string') return null;
+
+    /* ① Robust JSON extraction — try both structured + walk approaches */
+    var fromJson = _srchParseStateJSON(html);
+    if(fromJson.length){
+      var n = fromJson[0];
+      return { title:n.title, desc:n.desc, author:n.author, authorDesc:'', images:n.images, likes:n.likes, collects:n.collects, comments:n.comments, tags:n.tags, _fromJson:true };
+    }
+
+    /* ③ DOM selectors — exact ports from xiaohongshu.ts getNoteDetailData() */
+    var title='', desc='', author='', authorDesc='', images=[], likes=0, collects=0, comments=0, tags=[];
+
+    /* title: #detail-title */
+    var titleEl=doc.querySelector('#detail-title');
+    if(titleEl) title=titleEl.textContent.trim();
+
+    /* content: #detail-desc .note-text  — strip <a> links, keep text nodes */
+    var contentEl=doc.querySelector('#detail-desc .note-text');
+    if(contentEl){
+      contentEl.childNodes.forEach(function(node){
+        if(node.nodeType===3){ desc+=node.textContent; }
+        else if(node.nodeType===1 && node.tagName!=='A'){ desc+=node.textContent; }
+      });
+      desc=desc.trim();
+    }
+    if(!desc){ var og=doc.querySelector('meta[property="og:description"]'); if(og) desc=og.getAttribute('content')||''; }
+
+    /* author: .author-wrapper .username */
+    var authorEl=doc.querySelector('.author-wrapper .username')||doc.querySelector('.username');
+    if(authorEl) author=authorEl.textContent.trim();
+
+    /* authorDesc: .user-desc */
+    var adEl=doc.querySelector('.user-desc');
+    if(adEl) authorDesc=adEl.textContent.trim();
+
+    /* images: .note-slider-img */
+    doc.querySelectorAll('.note-slider-img').forEach(function(img){ var s=img.src||img.getAttribute('data-src')||''; if(s) images.push(s); });
+    if(!images.length){ doc.querySelectorAll('meta[property="og:image"]').forEach(function(m){ var s=m.getAttribute('content')||''; if(s) images.push(s); }); }
+
+    /* engagement: .engage-bar-style .count  → [likes, collects, comments] */
+    var counts=doc.querySelectorAll('.engage-bar-style .count');
+    if(counts.length>=3){
+      var lt=counts[0].textContent.trim(); var ct=counts[1].textContent.trim(); var mt=counts[2].textContent.trim();
+      likes   = lt==='赞'?0:(parseInt(lt)||0);
+      collects= ct==='收藏'?0:(parseInt(ct)||0);
+      comments= mt==='评论'?0:(parseInt(mt)||0);
+    }
+
+    /* tags: #detail-desc .tag */
+    doc.querySelectorAll('#detail-desc .tag').forEach(function(t){ var tx=t.textContent.trim().replace(/^#/,''); if(tx) tags.push(tx); });
+    if(!tags.length){ var kw=doc.querySelector('meta[name="keywords"]'); if(kw) tags=(kw.getAttribute('content')||'').split(/[,，、]+/).map(function(s){return s.trim();}).filter(Boolean).slice(0,10); }
+
+    if(!title){ var ogT=doc.querySelector('meta[property="og:title"]'); if(ogT) title=ogT.getAttribute('content')||''; }
+    return { title:title, desc:desc, author:author, authorDesc:authorDesc, images:images, likes:likes, collects:collects, comments:comments, tags:tags, _fromJson:false };
+  }
+
+  /* ── Render a single note card ── */
+  function _srchRenderCard(note, idx){
+    var grid=document.getElementById('srch-grid'); if(!grid) return;
+    var old=document.getElementById('srch-card-'+idx);
+    var typeBadge=note.type==='video'
+      ? '<span class="srch-type-badge srch-type-video">▶ Video</span>'
+      : '<span class="srch-type-badge srch-type-normal">🖼 Image</span>';
+    var thumbHtml=note.cover
+      ? '<img class="srch-card-thumb" src="'+esc(note.cover)+'" onerror="this.parentNode.innerHTML=\'<div class=\\\"srch-card-thumb-ph\\\">🖼</div>\'">'
+      : '<div class="srch-card-thumb-ph">'+(note.type==='video'?'🎬':'🖼')+'</div>';
+    var tagsHtml=(note.tags||[]).slice(0,5).map(function(t){ return '<span class="mg-tag">#'+esc(t)+'</span>'; }).join('');
+    var metaHtml='';
+    if(note.likes||note.collects||note.comments){
+      metaHtml='<div class="srch-card-meta">'
+        +(note.likes?'<span>❤️ '+note.likes+'</span>':'')
+        +(note.collects?'<span>⭐ '+note.collects+'</span>':'')
+        +(note.comments?'<span>💬 '+note.comments+'</span>':'')
+        +'</div>';
+    }
+    var descHtml=note.desc?'<div class="srch-card-desc">'+esc(note.desc)+'</div>':'';
+    var detailBtnTxt=note._detailed?'✓ Fetched':'📥 Details';
+    var detailBtnClass='srch-card-btn srch-card-btn-detail'+(note._detailBusy?' busy':'');
+
+    var div=document.createElement('div');
+    div.className='srch-card'; div.id='srch-card-'+idx;
+    div.innerHTML=
+      thumbHtml+
+      '<div class="srch-card-body">'+
+        '<div class="srch-card-title">'+esc(note.title||'(no title)')+'</div>'+
+        '<div class="srch-card-author">👤 '+esc(note.author||'—')+typeBadge+'</div>'+
+        metaHtml+
+        descHtml+
+        (tagsHtml?'<div class="srch-card-tags">'+tagsHtml+'</div>':'')+
+        '<div class="srch-card-btns">'+
+          '<button class="'+detailBtnClass+'" onclick="xhsFetchCardDetail('+idx+',this)">'+detailBtnTxt+'</button>'+
+          '<button class="srch-card-btn srch-card-btn-open" onclick="window.open(\''+esc(note.link)+'\',\'_blank\')">🔗 Open</button>'+
+          '<button class="srch-card-btn srch-card-btn-copy" onclick="xhsCopyNote('+idx+',this)">📋 Copy</button>'+
+        '</div>'+
+      '</div>';
+    if(old) grid.replaceChild(div,old); else grid.appendChild(div);
+  }
+
+  /* ── Main search function (Method 2 — Auto) ── */
+  window.xhsSearch=function(){
+    var kw=(document.getElementById('srch-keyword')||{}).value||'';
+    kw=kw.trim(); if(!kw){ toast('⚠ Enter a keyword'); return; }
+    var count=parseInt((document.getElementById('srch-count')||{}).value||'12')||12;
+    _srchStopped=false; _srchNotes=[];
+    document.getElementById('srch-btn-go').disabled=true;
+    document.getElementById('srch-btn-stop').disabled=false;
+    document.getElementById('srch-btn-details').disabled=true;
+    document.getElementById('srch-btn-export').disabled=true;
+    var grid=document.getElementById('srch-grid');
+    grid.innerHTML='<div class="srch-empty"><div class="srch-empty-ico"><span class="mg-spin">⚙</span></div>Trying auto-search for "'+esc(kw)+'"…</div>';
+    document.getElementById('srch-stats-card').style.display='none';
+    _srchProg('Fetching search results…',5,'Connecting via proxy…');
+
+    (async function(){
+      try{
+        /* Try XHS search API endpoint first */
+        var apiUrl='https://www.xiaohongshu.com/api/sns/web/v1/search/notes?keyword='+encodeURIComponent(kw)+'&page=1&page_size='+count+'&sort=general&note_type=0';
+        _srchProg('Trying XHS search API…',20,apiUrl);
+        var apiResp=await mgFetch(apiUrl);
+        /* If cookies blocked, retry with Googlebot UA */
+        if(apiResp && apiResp.loginRequired) apiResp = await mgFetch(apiUrl, true);
+        var apiStr=typeof apiResp==='string'?apiResp:(apiResp&&apiResp.html?apiResp.html:'');
+        if(apiStr&&apiStr.length>100){
+          try{
+            var j=JSON.parse(apiStr);
+            /* XHS search API response: data.items[] where each item has noteCard wrapper */
+            var apiItems=(j.data&&j.data.items)||(j.data&&j.data.notes)||(j.items)||[];
+            if(apiItems.length){
+              var noteMap={};
+              apiItems.forEach(function(item){
+                /* item may be: { noteId:"...", noteCard:{displayTitle,desc,...} } */
+                var n=item.note_card||item.noteCard||item.note||item;
+                /* Merge outer id/noteId with inner card fields */
+                if(item.noteId && !n.noteId) n = Object.assign({noteId:item.noteId}, n);
+                if(item.note_id && !n.note_id) n = Object.assign({note_id:item.note_id}, n);
+                _srchNoteFromObj(n, noteMap, _srchNotes);
+              });
+              /* If structured parse missed some, run a recursive walk on the whole response */
+              if(_srchNotes.length < apiItems.length){
+                _srchWalkState(j, noteMap, _srchNotes, 0);
+              }
+            } else {
+              /* No items array — walk entire JSON tree (catches any nesting) */
+              _srchWalkState(j, {}, _srchNotes, 0);
+            }
+          }catch(e){
+            /* Not JSON — treat as HTML and run _srchParseStateJSON */
+            var _apiNotes = _srchParseStateJSON(apiStr);
+            if(_apiNotes.length) _srchNotes = _apiNotes;
+          }
+        }
+
+        /* Fallback: fetch HTML search results page */
+        if(!_srchNotes.length){
+          var searchUrl='https://www.xiaohongshu.com/search_result?keyword='+encodeURIComponent(kw);
+          _srchProg('Trying HTML search page…',40,searchUrl);
+          var html=await mgFetch(searchUrl);
+          /* If cookies blocked it, retry with Googlebot UA */
+          if(html && html.loginRequired){
+            _srchProg('Trying HTML search page (crawler mode)…',50,searchUrl);
+            html = await mgFetch(searchUrl, true); /* forceNoAuth → Googlebot UA */
+          }
+          var htmlStr=typeof html==='string'?html:(html&&html.html?html.html:'');
+          if(htmlStr&&htmlStr.length>200){
+            _srchNotes=_srchParseStateJSON(htmlStr);
+          }
+        }
+
+        _srchNotes=_srchNotes.slice(0,count);
+
+        if(!_srchNotes.length){
+          grid.innerHTML='<div class="srch-empty"><div class="srch-empty-ico">🔒</div>'
+            +'<strong>Auto-search blocked by XHS</strong><br><br>'
+            +'XHS requires login and blocks proxy requests for search.<br><br>'
+            +'<strong style="color:var(--green);">✅ Use Method 1 above (Paste Source)</strong>:<br>'
+            +'Go to <code>xiaohongshu.com/search_result?keyword='+encodeURIComponent(kw)+'</code><br>'
+            +'while logged in → <code>Ctrl+U</code> → <code>Ctrl+A</code> → <code>Ctrl+C</code> → paste above.'
+            +'</div>';
+          /* Auto-fill the keyword in the paste method */
+          var pkw=document.getElementById('srch-paste-kw'); if(pkw) pkw.value=kw;
+          xhsUpdateUrlHint(kw);
+          _srchProg('Blocked — use Method 1',0,'');
+          toast('⚠ Auto-search blocked — use Method 1 (Paste Source)');
+        } else {
+          grid.innerHTML='';
+          _srchNotes.forEach(function(n,i){ _srchRenderCard(n,i); });
+          _srchStatsUpdate();
+          _srchProg('✓ Found '+_srchNotes.length+' notes',100,'');
+          document.getElementById('srch-btn-details').disabled=false;
+          document.getElementById('srch-btn-export').disabled=false;
+          toast('✅ '+_srchNotes.length+' notes found for "'+kw+'"');
+        }
+      }catch(e){
+        grid.innerHTML='<div class="srch-empty"><div class="srch-empty-ico">❌</div>'+esc(e.message)+'<br><br>Use <strong>Method 1 (Paste Source)</strong> instead.</div>';
+        _srchProg('Error — use Method 1',0,'');
+      }
+      document.getElementById('srch-btn-go').disabled=false;
+      document.getElementById('srch-btn-stop').disabled=true;
+    })();
+  };
+
+  window.xhsSearchStop=function(){
+    _srchStopped=true;
+    document.getElementById('srch-btn-go').disabled=false;
+    document.getElementById('srch-btn-stop').disabled=true;
+    toast('Stopped');
+  };
+
+  /* ── Fetch detail for a single card — mirrors getNoteDetail() ── */
+  window.xhsFetchCardDetail=async function(idx, btn){
+    var note=_srchNotes[idx]; if(!note) return;
+    if(note._detailed){ xhsShowModal(idx); return; }
+    if(btn){ btn.classList.add('busy'); btn.textContent='⏳ Fetching…'; }
+    note._detailBusy=true;
+    try{
+      _srchProg('Fetching detail for note '+(idx+1)+'…',null,note.link);
+      var html=await mgFetch(note.link);
+      /* Crawler-mode fallback: if cookies caused login wall, retry with Googlebot UA */
+      if(html && html.loginRequired) html = await mgFetch(note.link, true);
+      var htmlStr=typeof html==='string'?html:(html&&html.html?html.html:'');
+      if(htmlStr){
+        var d=_srchParseDetail(htmlStr, note.link);
+        if(d){
+          if(d.title) note.title=d.title;
+          if(d.desc)  note.desc=d.desc;
+          if(d.author&&!note.author) note.author=d.author;
+          if(d.authorDesc) note.authorDesc=d.authorDesc;
+          if(d.images&&d.images.length) note.images=d.images;
+          if(d.likes>0) note.likes=d.likes;
+          if(d.collects>0) note.collects=d.collects;
+          if(d.comments>0) note.comments=d.comments;
+          if(d.tags&&d.tags.length) note.tags=d.tags;
+          /* try translate */
+          var langSel=document.getElementById('srch-lang');
+          var doTrans=langSel&&typeof gemini==='function'&&KEYS&&KEYS.length;
+          if(doTrans){
+            try{
+              var tr=await doTranslate({title:note.title,description:note.desc,hashtags:note.tags},'srch-lang');
+              if(tr.translated){ note.title=tr.data.title||note.title; note.desc=tr.data.description||note.desc; note.tags=tr.data.hashtags||note.tags; note._translated=true; }
+            }catch(te){}
+          }
+          note._detailed=true;
+        }
+      }
+    }catch(e){ toast('⚠ Detail fetch failed: '+e.message); }
+    note._detailBusy=false;
+    _srchRenderCard(note,idx);
+    _srchStatsUpdate();
+    if(note._detailed) xhsShowModal(idx);
+    if(btn){ btn.classList.remove('busy'); }
+  };
+
+  /* ── Fetch all details ── */
+  window.xhsFetchAllDetails=async function(){
+    document.getElementById('srch-btn-details').disabled=true;
+    var pending=_srchNotes.map(function(n,i){ return {n:n,i:i}; }).filter(function(o){ return !o.n._detailed; });
+    var total=pending.length, done=0;
+    /* 3 concurrent workers — mirrors xiaohongshu.ts concurrency=3 */
+    var queue=pending.slice();
+    async function worker(){
+      while(queue.length&&!_srchStopped){
+        var item=queue.shift(); if(!item) break;
+        _srchProg('Fetching details… '+(done+1)+'/'+total,Math.round((done/total)*100),'Note '+(item.i+1)+': '+item.n.title.slice(0,50));
+        await xhsFetchCardDetail(item.i, null);
+        done++;
+        await new Promise(function(r){ setTimeout(r,1500); }); /* rate limit */
+      }
+    }
+    await Promise.all([worker(),worker(),worker()]);
+    _srchProg('✓ All details fetched',100,'');
+    document.getElementById('srch-btn-details').disabled=false;
+    toast('✅ All details fetched!');
+  };
+
+  /* ── Show detail modal ── */
+  window.xhsShowModal=function(idx){
+    var note=_srchNotes[idx]; if(!note) return;
+    var modal=document.getElementById('srch-modal');
+    var content=document.getElementById('srch-modal-content');
+    var imgsHtml=(note.images&&note.images.length)
+      ? '<div class="srch-modal-imgs">'+note.images.map(function(u){ return '<img class="srch-modal-img" src="'+esc(u)+'" onclick="window.open(this.src,\'_blank\')" onerror="this.style.display=\'none\'">'; }).join('')+'</div>'
+      : '';
+    var engageHtml='';
+    if(note.likes||note.collects||note.comments){
+      engageHtml='<div class="srch-engage-row">'
+        +(note.likes?'<span class="srch-engage-pill">❤️ '+note.likes+' likes</span>':'')
+        +(note.collects?'<span class="srch-engage-pill">⭐ '+note.collects+' saves</span>':'')
+        +(note.comments?'<span class="srch-engage-pill">💬 '+note.comments+' comments</span>':'')
+        +'</div>';
+    }
+    var tagsHtml=(note.tags||[]).map(function(t){ return '<span class="mg-tag">#'+esc(t)+'</span>'; }).join(' ');
+    content.innerHTML=
+      '<div style="font-family:\'Syne\',sans-serif;font-size:17px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:8px;">'+esc(note.title||'(no title)')+'</div>'+
+      '<div style="font-size:13px;color:var(--muted);margin-bottom:8px;">👤 <strong>'+esc(note.author||'—')+'</strong>'+(note.authorDesc?' · <em>'+esc(note.authorDesc)+'</em>':'')+'</div>'+
+      engageHtml+
+      imgsHtml+
+      (note.desc?'<div style="font-size:14px;color:var(--body-text);line-height:1.7;margin:10px 0;">'+esc(note.desc)+'</div>':'')+
+      (tagsHtml?'<div style="margin-top:8px;">'+tagsHtml+'</div>':'')+
+      '<div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">'+
+        '<a href="'+esc(note.link)+'" target="_blank" style="padding:8px 16px;background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);border-radius:7px;font-size:13px;font-weight:700;text-decoration:none;">🔗 Open on XHS</a>'+
+        '<button onclick="xhsCopyNote('+idx+',this)" style="padding:8px 16px;background:rgba(66,183,42,.12);color:var(--green);border:1px solid rgba(66,183,42,.3);border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;">📋 Copy All</button>'+
+      '</div>';
+    modal.style.display='flex';
+  };
+
+  window.xhsCloseModal=function(){ document.getElementById('srch-modal').style.display='none'; };
+
+  /* ── Copy note text ── */
+  window.xhsCopyNote=function(idx,btn){
+    var note=_srchNotes[idx]; if(!note) return;
+    var text='Title: '+note.title+'\nAuthor: '+note.author+(note.authorDesc?'\n('+note.authorDesc+')':'')+'\n\n'+note.desc+(note.tags&&note.tags.length?'\n\nTags: '+note.tags.map(function(t){ return '#'+t; }).join(' '):'')+'\n\nLink: '+note.link;
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ if(btn) btn.textContent='✓ Copied!'; setTimeout(function(){ if(btn) btn.textContent='📋 Copy'; },2000); }); }
+    else{ var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); if(btn) btn.textContent='✓ Copied!'; setTimeout(function(){ if(btn) btn.textContent='📋 Copy'; },2000); }
+    toast('✓ Copied to clipboard');
+  };
+
+  /* ── Export search results to CSV ── */
+  window.xhsExportCSV=function(){
+    if(!_srchNotes.length){ toast('Nothing to export'); return; }
+    var rows=[['#','Type','Title','Description','Author','Likes','Saves','Comments','Tags','Images','Link']];
+    _srchNotes.forEach(function(n,i){
+      if(!n) return;
+      rows.push([
+        i+1, n.type||'normal',
+        n.title||'', n.desc||'',
+        n.author||'', n.likes||0, n.collects||0, n.comments||0,
+        (n.tags||[]).map(function(t){ return '#'+t; }).join(' '),
+        (n.images||[]).join(' | '),
+        n.link||''
+      ]);
+    });
+    var csv=rows.map(function(row){ return row.map(function(c){ var s=String(c).replace(/"/g,'""'); return /[",\n\r]/.test(s)?'"'+s+'"':s; }).join(','); }).join('\r\n');
+    var blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='xhs_search_'+(document.getElementById('srch-keyword')||{}).value.replace(/\s+/g,'_')+'_'+new Date().toISOString().slice(0,10)+'.csv'; a.click(); URL.revokeObjectURL(a.href);
+    toast('✓ CSV exported!');
+  };
+
+  /* ─── TAB SWITCHER ─── */
   var _origGoPage=window.goPage;
   window.goPage=function(p){ _origGoPage(p); if(p==='metagrab') mgUpdateKeyNotice(); };
 
