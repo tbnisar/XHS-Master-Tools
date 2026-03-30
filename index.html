@@ -1855,8 +1855,8 @@ FB Boost<br>Pro
   <div style="margin-top:14px;background:linear-gradient(135deg,rgba(24,119,242,.08),rgba(66,183,42,.06));border:1.5px solid rgba(24,119,242,.3);border-radius:14px;padding:16px 18px;">
     <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--blue);margin-bottom:6px;">📲 Use Your Keys on Any Device</div>
     <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">
-      Generate a special bookmark link with your API keys baked in.<br>
-      <strong style="color:var(--text);">Open it on any phone, tablet or computer</strong> — your keys load automatically. Save it as a bookmark or keep it in your notes.
+      Generate a special bookmark link with <strong>all your settings baked in</strong> — API keys, profile, theme, provider &amp; model.<br>
+      <strong style="color:var(--text);">Open it on any phone, tablet or computer</strong> — everything loads automatically. Save it as a bookmark or keep it in your notes.
     </div>
     <button onclick="generateBookmarkLink()" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--blue),#0a55cc);border:none;color:#fff;border-radius:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:.3px;">
       🔗 Copy Bookmark Link
@@ -2504,30 +2504,60 @@ if("serviceWorker" in navigator && location.protocol !== "file:") navigator.serv
 /* ─ INIT ─ */
 window.onload = function() {
   /* Theme init */
-  var savedTheme = localStorage.getItem('fbptheme') || 'dark';
+  var savedTheme = localStorage.getItem('fbptheme') || 'light';
   applyTheme(savedTheme);
 
-  /* ── BOOKMARK LINK: auto-import keys from URL hash ── */
+  /* ── BOOKMARK LINK: auto-import ALL settings from URL hash ── */
   (function(){
     try {
       var hash = window.location.hash || '';
+      /* ── New full-config format: #cfg=<base64> ── */
+      var mCfg = hash.match(/[#&]cfg=([A-Za-z0-9+/=_-]+)/);
+      if(mCfg){
+        var cfg = JSON.parse(decodeURIComponent(escape(atob(mCfg[1].replace(/-/g,'+').replace(/_/g,'/')))));
+        /* Keys — merge with existing */
+        if(Array.isArray(cfg.keys) && cfg.keys.length){
+          var existing = [];
+          try { existing = JSON.parse(localStorage.getItem("fbpkeys")||"[]"); } catch(e){}
+          var added = 0;
+          cfg.keys.forEach(function(k){
+            if(k && k.val && !existing.find(function(e){ return e.val===k.val; })){ existing.push(k); added++; }
+          });
+          if(existing.length) localStorage.setItem("fbpkeys", JSON.stringify(existing));
+        }
+        /* Profile */
+        if(cfg.prof && (cfg.prof.name || cfg.prof.email || cfg.prof.em)){
+          var base = {name:"Your Name",email:"",em:"😊"};
+          localStorage.setItem("fbpprof", JSON.stringify(Object.assign(base, cfg.prof)));
+        }
+        /* Theme */
+        if(cfg.theme === 'light' || cfg.theme === 'dark')
+          localStorage.setItem("fbptheme", cfg.theme);
+        /* Provider / model / strategy */
+        if(cfg.provider) localStorage.setItem("fbpprov",  cfg.provider);
+        if(cfg.model)    localStorage.setItem("fbpmod",   cfg.model);
+        if(cfg.strategy) localStorage.setItem("fbpstrat", cfg.strategy);
+        /* Clean hash and notify */
+        history.replaceState(null,'', window.location.pathname + window.location.search);
+        setTimeout(function(){
+          var kCount = (cfg.keys||[]).length;
+          toast('✅ All settings restored from bookmark link'+(kCount?' ('+kCount+' key'+(kCount>1?'s':'')+')':'')+'!');
+        }, 800);
+        return; /* skip legacy handler */
+      }
+      /* ── Legacy keys-only format: #keys=<base64> ── */
       var m = hash.match(/[#&]keys=([A-Za-z0-9+/=_-]+)/);
       if(!m) return;
       var decoded = JSON.parse(atob(m[1].replace(/-/g,'+').replace(/_/g,'/')));
       if(!Array.isArray(decoded) || !decoded.length) return;
-      /* Load existing keys first so we can merge */
       var existing = [];
       try { existing = JSON.parse(localStorage.getItem("fbpkeys")||"[]"); } catch(e){}
       var added = 0;
       decoded.forEach(function(k){
-        if(k && k.val && !existing.find(function(e){ return e.val===k.val; })){
-          existing.push(k);
-          added++;
-        }
+        if(k && k.val && !existing.find(function(e){ return e.val===k.val; })){ existing.push(k); added++; }
       });
       if(added){
         localStorage.setItem("fbpkeys", JSON.stringify(existing));
-        /* Clean hash from URL without page reload */
         history.replaceState(null,'', window.location.pathname + window.location.search);
         setTimeout(function(){ toast('🔑 '+added+' key'+(added>1?'s':'')+' imported from bookmark link!'); }, 800);
       }
@@ -2612,16 +2642,36 @@ function saveKeys() {
   if(typeof renderKeysExportTable==="function") setTimeout(renderKeysExportTable, 50);
 }
 
-/* ── BOOKMARK LINK — encodes all saved keys into a URL you can bookmark ── */
+/* ── BOOKMARK LINK — encodes ALL settings (keys, profile, theme, provider, model, strategy) ── */
 function generateBookmarkLink(){
   if(!KEYS.length){ toast('⚠️ No keys saved yet — add keys first'); return; }
   try {
-    var encoded = btoa(JSON.stringify(KEYS)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+    /* Collect current profile from DOM (in case user hasn't saved yet) */
+    var pnameEl  = document.getElementById('pname');
+    var pemailEl = document.getElementById('pemail');
+    var pavEl    = document.getElementById('pav');
+    var currentProf = {
+      name:  (pnameEl  ? pnameEl.textContent  : prof.name)  || prof.name,
+      email: (pemailEl ? pemailEl.textContent : prof.email) || prof.email,
+      em:    (pavEl    ? pavEl.textContent    : prof.em)    || prof.em
+    };
+    /* Collect current theme */
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    /* Bundle everything */
+    var cfg = {
+      keys:     KEYS,
+      prof:     currentProf,
+      theme:    currentTheme,
+      provider: ACTIVE_PROVIDER,
+      model:    MODEL,
+      strategy: KEY_STRATEGY
+    };
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(cfg)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
     var base = window.location.origin + window.location.pathname;
-    var url = base + '#keys=' + encoded;
+    var url = base + '#cfg=' + encoded;
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(url).then(function(){
-        toast('✅ Bookmark link copied! Paste it in a new tab or save as bookmark.');
+        toast('✅ Bookmark link copied! All settings included.');
       }).catch(function(){ _fallbackCopyBookmark(url); });
     } else { _fallbackCopyBookmark(url); }
   } catch(e){ toast('❌ Could not generate link: '+e.message); }
@@ -7305,8 +7355,8 @@ function toggleSidebar() {
 <!-- ── TABS ── -->
 <div class="mg-tabs">
   <button class="mg-tab active" id="mg-tab-url" onclick="mgSwitchTab('url')">🔗 URL Meta Grab</button>
-  <button class="mg-tab" id="mg-tab-profile" onclick="mgSwitchTab('profile')">👤 Profile Scanner (Not Working)</button>
-  <button class="mg-tab" id="mg-tab-search" onclick="mgSwitchTab('search')">🔍 Keyword Search (Not Working)</button>
+  <button class="mg-tab" id="mg-tab-profile" onclick="mgSwitchTab('profile')">👤 Profile Scanner</button>
+  <button class="mg-tab" id="mg-tab-search" onclick="mgSwitchTab('search')">🔍 Keyword Search</button>
 </div>
 
 <!-- ══════════════════ PANEL 1 — URL META GRAB ══════════════════ -->
