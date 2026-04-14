@@ -1196,7 +1196,7 @@ input[type="range"]#desc-timer-bar::-moz-range-thumb {
 .logo-toggle-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;}
 .logo-toggle-wrap input[type=checkbox]{width:17px;height:17px;cursor:pointer;accent-color:var(--purple);}
 .logo-toggle-label{font-size:13px;font-weight:700;color:var(--text);cursor:pointer;}
-.logo-body{padding:0 14px 14px;display:none;}
+.logo-body{padding:0 14px 14px;display:block;}
 .logo-body.open{display:block;}
 .logo-drop-zone{border:2px dashed var(--border2);border-radius:10px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:12px;background:var(--bg3);}
 .logo-drop-zone:hover,.logo-drop-zone.dragover{border-color:var(--purple);background:rgba(168,85,247,.05);}
@@ -1235,7 +1235,7 @@ input[type="range"]#desc-timer-bar::-moz-range-thumb {
     <span class="bnav-logo-name" style="font-size:13px;text-align:center;display:block;line-height:1.2;">
 FB Boost<br>Pro
 </span>
-    <span class="bnav-logo-ver">v37</span>
+    <span class="bnav-logo-ver">v24</span>
   </div>
   <div class="bnav-items">
     <button class="nb active" id="nav-booster" onclick="goPage('booster')"><div class="nb-i">🖼️</div><div class="nb-l">Booster</div></button>
@@ -1730,12 +1730,8 @@ FB Boost<br>Pro
     <div class="logo-panel-card" id="logo-panel">
       <div class="logo-panel-header">
         <span class="clbl" style="font-size:14px;">🏷️ Logo / Watermark Overlay</span>
-        <label class="logo-toggle-wrap" for="logo-enabled">
-          <input type="checkbox" id="logo-enabled" onchange="logoToggle(this)">
-          <span class="logo-toggle-label">Enable</span>
-        </label>
       </div>
-      <div class="logo-body" id="logo-body">
+      <div class="logo-body open" id="logo-body">
 
         <!-- Logo upload area -->
         <div class="logo-drop-zone" id="logo-drop-zone"
@@ -2682,7 +2678,7 @@ let vDur = 0, vW = 0, vH = 0, outUrl = null, outBlob = null;
 let clipMode = 'ai', clipLengthSec = 60, clipFocus = '';
 let manStartSec = 0, manEndSec = 30, manDragging = null;
 /* ── Logo overlay state ── */
-let logoImg = null, logoEnabled = false, logoOpacity = 0.80;
+let logoImg = null, logoEnabled = true, logoOpacity = 0.80;
 let logoPosition = 'lower-right', logoSizePct = 0.15;
 let _logoRandX = 0, _logoRandY = 0, _logoRandVX = 1.2, _logoRandVY = 0.9;
 let _logoRandW = 0, _logoRandH = 0;
@@ -6173,10 +6169,7 @@ function pasteKeysImport() {
    LOGO OVERLAY FUNCTIONS
 ════════════════════════════════════ */
 function logoToggle(cb){
-  logoEnabled = cb.checked;
-  var body = document.getElementById('logo-body');
-  if(body) body.classList.toggle('open', logoEnabled);
-  if(!logoEnabled) logoStopPreview();
+  /* toggle removed — logo panel always visible */
 }
 
 function logoFileLoad(input){
@@ -6193,7 +6186,8 @@ function logoFileLoad(input){
         dz.innerHTML =
           '<img class="logo-preview-thumb" src="'+ev.target.result+'">' +
           '<div class="ldz-txt" style="margin-top:5px;font-size:12px;">✅ '+f.name+
-          '<br><span style="font-size:11px;color:var(--dim);">'+img.naturalWidth+'×'+img.naturalHeight+'</span></div>';
+          '<br><span style="font-size:11px;color:var(--dim);">'+img.naturalWidth+'×'+img.naturalHeight+'</span></div>' +
+          '<button onclick="event.stopPropagation();logoRemove()" style="margin-top:8px;padding:5px 14px;background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.3);border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;">✕ Remove Logo</button>';
       }
       toast('✓ Logo loaded: '+f.name);
     };
@@ -6201,6 +6195,23 @@ function logoFileLoad(input){
     img.src = ev.target.result;
   };
   reader.readAsDataURL(f);
+}
+
+function logoRemove(){
+  logoImg = null;
+  _logoRandW = 0;
+  logoStopPreview();
+  var dz = document.getElementById('logo-drop-zone');
+  if(dz){
+    dz.innerHTML =
+      '<div class="ldz-ico">🖼️</div>' +
+      '<div class="ldz-txt">Tap or drag logo image here<br>' +
+      '<span style="font-size:11px;color:var(--dim);">PNG with transparency works best · SVG, JPG, WEBP OK</span>' +
+      '</div>';
+  }
+  var inp = document.getElementById('logo-file-inp');
+  if(inp){ try{ inp.value=''; }catch(e){} }
+  toast('✓ Logo removed');
 }
 
 function logoDrop(e){
@@ -6236,7 +6247,7 @@ function getLogoXY(cw, ch, lw, lh){
 }
 
 function drawLogoOverlay(ctx, dims){
-  if(!logoEnabled || !logoImg) return;
+  if(!logoImg) return;
   var cw = dims.w, ch = dims.h;
   var lw = Math.max(10, Math.round(cw * logoSizePct));
   var lh = (logoImg.naturalWidth > 0) ? Math.round(lw * logoImg.naturalHeight / logoImg.naturalWidth) : lw;
@@ -6319,7 +6330,7 @@ function logoTogglePreview(){
   };
   pv.load();
 
-  if(!logoEnabled || !logoImg) toast('⚠ Enable logo and load an image to see it on preview');
+  if(!logoImg) toast('⚠ Load a logo image to see it on preview');
 }
 
 function logoStopPreview(){
